@@ -53,6 +53,9 @@
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" backgroundImage="magnifyingglass.circle.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="SearchButtonGotPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TYo-Ww-k9Q"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -73,16 +76,16 @@
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZu-TQ-fkx" userLabel="tempStack">
-                                        <rect key="frame" x="177.33333333333337" y="175" width="212.66666666666663" height="119.66666666666669"/>
+                                        <rect key="frame" x="150.33333333333337" y="175" width="239.66666666666663" height="119.66666666666669"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3P-1k-6sp">
-                                                <rect key="frame" x="0.0" y="0.0" width="108.66666666666667" height="119.66666666666667"/>
-                                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="80"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="135.66666666666666" height="119.66666666666667"/>
+                                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="100"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Q9-z1-dJG">
-                                                <rect key="frame" x="108.66666666666666" y="0.0" width="104" height="119.66666666666667"/>
+                                                <rect key="frame" x="135.66666666666666" y="0.0" width="104" height="119.66666666666667"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="100"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -118,6 +121,12 @@
                             <constraint firstItem="f2r-Td-CER" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="uIx-T9-0Ht"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="CityLable" destination="TmZ-4F-Nat" id="SdT-73-0og"/>
+                        <outlet property="SearchTextFlied" destination="U0c-xo-4e5" id="Xf9-i3-CHe"/>
+                        <outlet property="TempratureLable" destination="E3P-1k-6sp" id="bCH-B6-A8p"/>
+                        <outlet property="WeatherConditionImage" destination="iMo-oy-MMn" id="r3G-3v-F6b"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
