@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
+class ViewController: UIViewController{
 
     @IBOutlet weak var SearchTextFlied: UITextField!
     @IBOutlet weak var WeatherConditionImage: UIImageView!
@@ -15,13 +16,22 @@ class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDeleg
     @IBOutlet weak var CityLable: UILabel!
     
     var weatherManager = WeatherManager()
+    let locationManager = CLLocationManager()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        
         weatherManager.delegate = self
         SearchTextFlied.delegate = self
     }
-
+    
+}
+// MARK: - UITextFiledDelegate
+extension ViewController: UITextFieldDelegate{
+    
+    
     @IBAction func SearchButtonGotPressed(_ sender: UIButton) {
         SearchTextFlied.endEditing(true)
         print(SearchTextFlied.text!)
@@ -52,6 +62,10 @@ class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDeleg
         
         SearchTextFlied.text = ""
     }
+}
+//MARK: - WeatherManagerDelegate
+
+extension ViewController: WeatherManagerDelegate{
     
     func didUpdateWeather(_ weatherManager: WeatherManager,weather: WeatherModel){
         DispatchQueue.main.async {
@@ -64,6 +78,15 @@ class ViewController: UIViewController, UITextFieldDelegate, WeatherManagerDeleg
     func didFailWithError(_ error: Error) {
         print(error)
     }
-    
 }
 
+//MARK: - CLLocationManagerDelegate
+
+extension ViewController: CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("we have the location")
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+}
