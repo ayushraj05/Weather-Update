@@ -17,6 +17,7 @@ class ViewController: UIViewController{
     
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
@@ -27,6 +28,11 @@ class ViewController: UIViewController{
         SearchTextFlied.delegate = self
     }
     
+    
+    @IBAction func CurrentLocationGotPressed(_ sender: UIButton) {
+        locationManager.requestLocation()
+    }
+
 }
 // MARK: - UITextFiledDelegate
 extension ViewController: UITextFieldDelegate{
@@ -34,12 +40,12 @@ extension ViewController: UITextFieldDelegate{
     
     @IBAction func SearchButtonGotPressed(_ sender: UIButton) {
         SearchTextFlied.endEditing(true)
-        print(SearchTextFlied.text!)
+//        print(SearchTextFlied.text!)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         SearchTextFlied.endEditing(true)
-        print(SearchTextFlied.text!)
+//        print(SearchTextFlied.text!)
         return true
     }
     
@@ -83,10 +89,18 @@ extension ViewController: WeatherManagerDelegate{
 //MARK: - CLLocationManagerDelegate
 
 extension ViewController: CLLocationManagerDelegate{
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("we have the location")
+        if let location = locations.last {
+            locationManager.stopUpdatingLocation()
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            weatherManager.fetchWeather(latitude: lat, longitude: lon)
+        }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
+
+    
 }
