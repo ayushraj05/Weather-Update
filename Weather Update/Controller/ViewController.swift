@@ -27,11 +27,21 @@ class ViewController: UIViewController{
         weatherManager.delegate = self
         SearchTextFlied.delegate = self
         locationManager.requestLocation()
+        setNavigationBarTitleWithDate()
     }
     
     
     @IBAction func CurrentLocationGotPressed(_ sender: UIButton) {
         locationManager.requestLocation()
+    }
+    
+    func setNavigationBarTitleWithDate(){
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, dd MMM yyyy"
+        let dateString = formatter.string(from: currentDate)
+        self.navigationItem.title = dateString
+        
     }
 
 }
