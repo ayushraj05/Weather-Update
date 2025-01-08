@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "light_background 1.pdf",
+      "filename" : "Screenshot 2025-01-08 at 5.29.23 PM 1.png",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "light"
         }
       ],
-      "filename" : "light_background.pdf",
+      "filename" : "Screenshot 2025-01-08 at 5.29.23 PM.png",
       "idiom" : "universal"
     },
     {
@@ -21,7 +21,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "dark_background.pdf",
+      "filename" : "Screenshot 2025-01-08 at 5.29.12 PM.png",
       "idiom" : "universal"
     }
   ],
