@@ -26,6 +26,7 @@ class ViewController: UIViewController{
         
         weatherManager.delegate = self
         SearchTextFlied.delegate = self
+        locationManager.requestLocation()
     }
     
     
