@@ -1,51 +1,68 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  Weather Update
 //
-//  Created by Ayush Rajpal on 23/05/24.
+//  Created by Ayush Rajpal on 09/01/25.
 //
 
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController{
-
-    @IBOutlet weak var SearchTextFlied: UITextField!
-    @IBOutlet weak var WeatherConditionImage: UIImageView!
-    @IBOutlet weak var TempratureLable: UILabel!
-    @IBOutlet weak var CityLable: UILabel!
+class MainViewController: UIViewController {
+    
+    
+    // IBOutlet
+    
+    @IBOutlet weak var SearchTextField: UITextField!
+    @IBOutlet weak var weatherView: WeatherView!
+    @IBOutlet weak var sunriseSunsetView: SunriseSunsetView!
+    @IBOutlet weak var feelsLikeView: InfoView!
+    @IBOutlet weak var humidityView: InfoView!
+    @IBOutlet weak var windSpeedView: InfoView!
+    
+    // variables & delegates
     
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
         
         weatherManager.delegate = self
-        SearchTextFlied.delegate = self
+        SearchTextField.delegate = self
         locationManager.requestLocation()
+        setNavigationBarTitleWithDate()
+        
+        
     }
-    
-    
     @IBAction func CurrentLocationGotPressed(_ sender: UIButton) {
         locationManager.requestLocation()
     }
-
+    
+    func setNavigationBarTitleWithDate(){
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, dd MMM yyyy"
+        let dateString = formatter.string(from: currentDate)
+        self.navigationItem.title = dateString
+        
+    }
 }
+
+
 // MARK: - UITextFiledDelegate
-extension ViewController: UITextFieldDelegate{
+extension MainViewController: UITextFieldDelegate{
     
     
     @IBAction func SearchButtonGotPressed(_ sender: UIButton) {
-        SearchTextFlied.endEditing(true)
+        SearchTextField.endEditing(true)
 //        print(SearchTextFlied.text!)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        SearchTextFlied.endEditing(true)
+        SearchTextField.endEditing(true)
 //        print(SearchTextFlied.text!)
         return true
     }
@@ -63,22 +80,30 @@ extension ViewController: UITextFieldDelegate{
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         // use the SearchTextFeild to search the city
-        if let city =  SearchTextFlied.text  {
+        if let city =  SearchTextField.text  {
             weatherManager.fetchWeather(cityName: city)
         }
         
-        SearchTextFlied.text = ""
+        SearchTextField.text = ""
     }
 }
+
 //MARK: - WeatherManagerDelegate
 
-extension ViewController: WeatherManagerDelegate{
+extension MainViewController: WeatherManagerDelegate{
     
     func didUpdateWeather(_ weatherManager: WeatherManager,weather: WeatherModel){
         DispatchQueue.main.async {
-            self.TempratureLable.text = weather.temperatureString
-            self.WeatherConditionImage.image = UIImage(systemName: weather.conditionName)
-            self.CityLable.text = weather.cityName
+            // update the ui
+            self.weatherView.cityLabel.text = weather.cityName
+            self.weatherView.temperatureLabel.text = weather.temperatureString + "°C"
+            self.weatherView.weatherIcon.image = UIImage(systemName: weather.conditionName)
+            self.sunriseSunsetView.updateSunriseSunset(sunriseTime: weather.sunrise, sunsetTime: weather.sunset)
+            self.feelsLikeView.updateView(heading: "Feels Like", info: weather.feelsLikeString)
+            self.windSpeedView.updateView(heading: "Wind Speed", info: weather.windSpeedString)
+            self.humidityView.updateView(heading: "Humidity", info: String(weather.humidity))
+
+            
         }
     }
     
@@ -89,7 +114,7 @@ extension ViewController: WeatherManagerDelegate{
 
 //MARK: - CLLocationManagerDelegate
 
-extension ViewController: CLLocationManagerDelegate{
+extension MainViewController: CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
@@ -105,3 +130,6 @@ extension ViewController: CLLocationManagerDelegate{
 
     
 }
+
+
+
