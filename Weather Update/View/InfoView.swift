@@ -64,14 +64,17 @@ class InfoView: UIView {
             blurEffectView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blurEffectView.topAnchor.constraint(equalTo: topAnchor),
             blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
-
+            
             // Heading Label Constraints
-            headingLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            headingLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             headingLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-
+            headingLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),  // Make heading label 80% of the container width
+            
             // Info Label Constraints
             infoLabel.topAnchor.constraint(equalTo: headingLabel.bottomAnchor, constant: 8),
-            infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            infoLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),  // Make info label 80% of the container width
+            infoLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
 

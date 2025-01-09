@@ -12,7 +12,7 @@ class SunriseSunsetView: UIView {
     // MARK: - Subviews
     private let sunriseLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 13)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -20,7 +20,7 @@ class SunriseSunsetView: UIView {
 
     private let sunsetLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 13)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

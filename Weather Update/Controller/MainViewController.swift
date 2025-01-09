@@ -99,7 +99,9 @@ extension MainViewController: WeatherManagerDelegate{
             self.weatherView.temperatureLabel.text = weather.temperatureString + "°C"
             self.weatherView.weatherIcon.image = UIImage(systemName: weather.conditionName)
             self.sunriseSunsetView.updateSunriseSunset(sunriseTime: weather.sunrise, sunsetTime: weather.sunset)
-            print(self.sunriseSunsetView.frame) // Check its frame dimensions
+            self.feelsLikeView.updateView(heading: "Feels Like", info: weather.feelsLikeString)
+            self.windSpeedView.updateView(heading: "Wind Speed", info: weather.windSpeedString)
+            self.humidityView.updateView(heading: "Humidity", info: String(weather.humidity))
 
             
         }
