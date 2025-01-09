@@ -16,6 +16,17 @@ struct WeatherData: Codable{
 
 struct Main: Codable {
     let temp: Double
+    let feels_like: Double
+    let humidity: Int
+}
+
+struct Wind: Codable {
+    let speed: Double
+}
+
+struct sys: Codable {
+    let sunrise: Int
+    let sunset: Int
 }
 
 struct Weather: Codable {
