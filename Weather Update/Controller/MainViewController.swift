@@ -6,24 +6,121 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MainViewController: UIViewController {
+    
+    
+    // IBOutlet
+    
+    @IBOutlet weak var SearchTextField: UITextField!
+    @IBOutlet weak var weatherView: WeatherView!
+    @IBOutlet weak var sunsetSunriseView: SunriseSunsetView!
+    @IBOutlet weak var feelsLikeView: InfoView!
+    @IBOutlet weak var humidityView: InfoView!
+    @IBOutlet weak var windSpeedView: InfoView!
+    
+    // variables & delegates
+    
+    var weatherManager = WeatherManager()
+    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        
+        weatherManager.delegate = self
+        SearchTextField.delegate = self
+        locationManager.requestLocation()
+        setNavigationBarTitleWithDate()
+        
+        
+    }
+    @IBAction func CurrentLocationGotPressed(_ sender: UIButton) {
+        locationManager.requestLocation()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setNavigationBarTitleWithDate(){
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, dd MMM yyyy"
+        let dateString = formatter.string(from: currentDate)
+        self.navigationItem.title = dateString
+        
     }
-    */
-
 }
+
+
+// MARK: - UITextFiledDelegate
+extension MainViewController: UITextFieldDelegate{
+    
+    
+    @IBAction func SearchButtonGotPressed(_ sender: UIButton) {
+        SearchTextField.endEditing(true)
+//        print(SearchTextFlied.text!)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        SearchTextField.endEditing(true)
+//        print(SearchTextFlied.text!)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.text != ""{
+            return true
+        }
+        else{
+            textField.placeholder = "Type something"
+            return false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        // use the SearchTextFeild to search the city
+        if let city =  SearchTextField.text  {
+            weatherManager.fetchWeather(cityName: city)
+        }
+        
+        SearchTextField.text = ""
+    }
+}
+
+//MARK: - WeatherManagerDelegate
+
+extension MainViewController: WeatherManagerDelegate{
+    
+    func didUpdateWeather(_ weatherManager: WeatherManager,weather: WeatherModel){
+        DispatchQueue.main.async {
+            // update the ui
+        }
+    }
+    
+    func didFailWithError(_ error: Error) {
+        print(error)
+    }
+}
+
+//MARK: - CLLocationManagerDelegate
+
+extension MainViewController: CLLocationManagerDelegate{
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            locationManager.stopUpdatingLocation()
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            weatherManager.fetchWeather(latitude: lat, longitude: lon)
+        }
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+
+    
+}
+
+
+

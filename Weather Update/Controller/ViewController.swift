@@ -22,8 +22,6 @@ class ViewController: UIViewController{
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-        
         weatherManager.delegate = self
         SearchTextFlied.delegate = self
         locationManager.requestLocation()
