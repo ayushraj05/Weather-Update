@@ -120,7 +120,11 @@
                                     <constraint firstItem="psu-pO-qNv" firstAttribute="leading" secondItem="X1k-SN-cba" secondAttribute="leading" id="EyU-Yr-ngZ"/>
                                     <constraint firstAttribute="trailing" secondItem="psu-pO-qNv" secondAttribute="trailing" id="Moz-V5-WvF"/>
                                     <constraint firstAttribute="trailing" secondItem="HCd-eZ-ZEv" secondAttribute="trailing" id="N7a-YY-wJD"/>
+                                    <constraint firstAttribute="trailing" secondItem="JIs-c1-86m" secondAttribute="trailing" id="ae6-ZI-j4O"/>
                                     <constraint firstItem="HCd-eZ-ZEv" firstAttribute="leading" secondItem="X1k-SN-cba" secondAttribute="leading" id="cpW-ES-vWd"/>
+                                    <constraint firstAttribute="trailing" secondItem="rOD-t9-3iY" secondAttribute="trailing" id="pkm-Ls-vr7"/>
+                                    <constraint firstItem="rOD-t9-3iY" firstAttribute="leading" secondItem="X1k-SN-cba" secondAttribute="leading" id="rN0-c2-Etb"/>
+                                    <constraint firstItem="JIs-c1-86m" firstAttribute="leading" secondItem="X1k-SN-cba" secondAttribute="leading" id="ujY-kP-QQj"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -142,7 +146,7 @@
                         <outlet property="SearchTextField" destination="bcM-hx-h1m" id="B5h-cB-6Ef"/>
                         <outlet property="feelsLikeView" destination="fW8-cg-iLY" id="O9F-6Y-v7K"/>
                         <outlet property="humidityView" destination="bM9-ZG-IHZ" id="gWZ-27-Rd7"/>
-                        <outlet property="sunsetSunriseView" destination="rOD-t9-3iY" id="Z8K-nP-fTd"/>
+                        <outlet property="sunriseSunsetView" destination="rOD-t9-3iY" id="k8F-QV-pvD"/>
                         <outlet property="weatherView" destination="HCd-eZ-ZEv" id="qel-No-LZk"/>
                         <outlet property="windSpeedView" destination="1UJ-PE-1Vy" id="RGu-Rh-47Q"/>
                     </connections>

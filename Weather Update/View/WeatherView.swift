@@ -12,7 +12,7 @@ class WeatherView: UIView {
     // MARK: - Subviews
     let temperatureLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 48) // Large and bold
+        label.font = UIFont.boldSystemFont(ofSize: 60) // Large and bold
         label.textColor = .black
         label.text = "14°C" // Default text
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -36,6 +36,15 @@ class WeatherView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    private let blurEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .light)
+        let effectView = UIVisualEffectView(effect: blurEffect)
+        effectView.translatesAutoresizingMaskIntoConstraints = false
+        effectView.layer.cornerRadius = 10
+        effectView.clipsToBounds = true
+        return effectView
+    }()
 
     // MARK: - Initializer
     override init(frame: CGRect) {
@@ -50,6 +59,8 @@ class WeatherView: UIView {
 
     // MARK: - Setup View
     private func setupView() {
+        backgroundColor = .clear
+        addSubview(blurEffectView)
         addSubview(temperatureLabel)
         addSubview(cityLabel)
         addSubview(weatherIcon)
@@ -67,7 +78,12 @@ class WeatherView: UIView {
             weatherIcon.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             weatherIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
             weatherIcon.widthAnchor.constraint(equalToConstant: 50),
-            weatherIcon.heightAnchor.constraint(equalToConstant: 50)
+            weatherIcon.heightAnchor.constraint(equalToConstant: 50),
+            
+            blurEffectView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            blurEffectView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            blurEffectView.topAnchor.constraint(equalTo: topAnchor),
+            blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

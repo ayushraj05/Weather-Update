@@ -12,7 +12,7 @@ class SunriseSunsetView: UIView {
     // MARK: - Subviews
     private let sunriseLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -20,16 +20,30 @@ class SunriseSunsetView: UIView {
 
     private let sunsetLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+        stackView.alignment = .center
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
     
     private let blurEffectView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .light)
         let effectView = UIVisualEffectView(effect: blurEffect)
         effectView.translatesAutoresizingMaskIntoConstraints = false
+        effectView.layer.cornerRadius = 10
+        effectView.clipsToBounds = true
         return effectView
     }()
     
@@ -46,31 +60,40 @@ class SunriseSunsetView: UIView {
 
     // MARK: - Setup View
     private func setupView() {
+        backgroundColor = .clear
         addSubview(blurEffectView)
-        addSubview(sunriseLabel)
-        addSubview(sunsetLabel)
-
+        addSubview(stackView)
+        stackView.addArrangedSubview(sunriseLabel)
+        stackView.addArrangedSubview(sunsetLabel)
+        
         NSLayoutConstraint.activate([
             // Blur Effect Constraints (Fill the entire view)
             blurEffectView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blurEffectView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blurEffectView.topAnchor.constraint(equalTo: topAnchor),
             blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
-
-            // Sunrise Label Constraints
-            sunriseLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            sunriseLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -20),
-
-            // Sunset Label Constraints
-            sunsetLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            sunsetLabel.topAnchor.constraint(equalTo: sunriseLabel.bottomAnchor, constant: 10)
+            
+            // Stack View Constraints (Center it in the view)
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 
     // MARK: - Update View
-    func updateSunriseSunset(sunriseTime: String, sunsetTime: String) {
-        sunriseLabel.text = "🌅 Sunrise: \(sunriseTime)"
-        sunsetLabel.text = "🌙 Sunset: \(sunsetTime)"
+    func updateSunriseSunset(sunriseTime: Int, sunsetTime: Int) {
+        let sr: String = formatUnixTimestamp(sunriseTime)
+        let ss: String = formatUnixTimestamp(sunsetTime)
+        sunriseLabel.text = "🌅 Sunrise: \(sr)"
+        sunsetLabel.text = "🌑 Sunset: \(ss)"
+    }
+    
+    func formatUnixTimestamp(_ timestamp: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm a" // Example: "06:30 AM"
+        formatter.timeZone = TimeZone.current // Use device's current timezone
+        return formatter.string(from: date)
     }
 }
 

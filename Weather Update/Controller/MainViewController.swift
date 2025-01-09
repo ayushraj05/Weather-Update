@@ -15,7 +15,7 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var SearchTextField: UITextField!
     @IBOutlet weak var weatherView: WeatherView!
-    @IBOutlet weak var sunsetSunriseView: SunriseSunsetView!
+    @IBOutlet weak var sunriseSunsetView: SunriseSunsetView!
     @IBOutlet weak var feelsLikeView: InfoView!
     @IBOutlet weak var humidityView: InfoView!
     @IBOutlet weak var windSpeedView: InfoView!
@@ -95,6 +95,13 @@ extension MainViewController: WeatherManagerDelegate{
     func didUpdateWeather(_ weatherManager: WeatherManager,weather: WeatherModel){
         DispatchQueue.main.async {
             // update the ui
+            self.weatherView.cityLabel.text = weather.cityName
+            self.weatherView.temperatureLabel.text = weather.temperatureString + "°C"
+            self.weatherView.weatherIcon.image = UIImage(systemName: weather.conditionName)
+            self.sunriseSunsetView.updateSunriseSunset(sunriseTime: weather.sunrise, sunsetTime: weather.sunset)
+            print(self.sunriseSunsetView.frame) // Check its frame dimensions
+
+            
         }
     }
     

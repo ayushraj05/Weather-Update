@@ -53,6 +53,7 @@ class InfoView: UIView {
     // MARK: - Setup View
 
     private func setupView() {
+        backgroundColor = .clear
         addSubview(blurEffectView)
         addSubview(headingLabel)
         addSubview(infoLabel)

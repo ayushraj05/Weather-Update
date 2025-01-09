@@ -14,8 +14,8 @@ struct WeatherModel{
     let feelsLike: Double
     let humidity: Double
     let windSpeed: Double
-    let sunrise: Date
-    let sunset: Date
+    let sunrise: Int
+    let sunset: Int
     
     var temperatureString: String{
         return String(format: "%.1f", temperature)

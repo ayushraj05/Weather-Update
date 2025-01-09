@@ -27,8 +27,8 @@ struct Wind: Codable {
 }
 
 struct Sys: Codable {
-    let sunrise: Date
-    let sunset: Date
+    let sunrise: Int
+    let sunset: Int
 }
 
 struct Weather: Codable {
