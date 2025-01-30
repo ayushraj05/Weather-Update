@@ -72,7 +72,7 @@
 				63221DFE2BFF67C6005B1632 /* SceneDelegate.swift */,
 				638A54F02C01E556001B92D4 /* Model */,
 				638A54ED2C01E4F5001B92D4 /* View */,
-				638A54EC2C01E4DE001B92D4 /* Controller */,
+				638A54EC2C01E4DE001B92D4 /* ViewModel */,
 				63221E052BFF67C7005B1632 /* Assets.xcassets */,
 				63221E072BFF67C7005B1632 /* LaunchScreen.storyboard */,
 				63221E0A2BFF67C7005B1632 /* Info.plist */,
@@ -80,12 +80,12 @@
 			path = "Weather Update";
 			sourceTree = "<group>";
 		};
-		638A54EC2C01E4DE001B92D4 /* Controller */ = {
+		638A54EC2C01E4DE001B92D4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				63F249B02D2FDD0600980BDA /* MainViewController.swift */,
 			);
-			path = Controller;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		638A54ED2C01E4F5001B92D4 /* View */ = {
